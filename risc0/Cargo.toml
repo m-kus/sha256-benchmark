@@ -1,0 +1,11 @@
+[package]
+name = "sha256"
+version = "0.1.0"
+edition = "2021"
+
+default-run = "sha256"
+
+[dependencies]
+sha256-methods = { path = "methods" }
+risc0-zkvm = { version = "1.0.1" }
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
