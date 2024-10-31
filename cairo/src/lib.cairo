@@ -5,11 +5,15 @@
 use core::num::traits::{Bounded, OverflowingAdd};
 
 /// Entrypoint
-fn main(mut args: Span<felt252>) {
+fn main(args: Array<felt252>) -> Array<felt252> {
+    let mut args = args.span();
     let mut input_words: Array<u32> = Serde::deserialize(ref args).expect('decode input');
     let expected_digest: [u32; 8] = Serde::deserialize(ref args).expect('decode digest');
     let actual_digest = compute_sha256_u32_array(input_words, 0, 0);
     assert(expected_digest == actual_digest, 'invalid hash');
+    let mut output = ArrayTrait::new();
+    Serde::serialize(@actual_digest, ref output);
+    output
 }
 
 /// Cairo implementation of the corelib `compute_sha256_u32_array` function.
@@ -180,14 +184,15 @@ fn create_message_schedule(data: Span<u32>, i: usize) -> Span<u32> {
     for j in 0..16_usize {
         result.append(*data[i * 16 + j]);
     };
-    for i in 16..64_usize {
-        let s0 = ssig0(*result[i - 15]);
-        let s1 = ssig1(*result[i - 2]);
-        let (tmp, _) = (*result[i - 16]).overflowing_add(s0);
-        let (tmp, _) = tmp.overflowing_add(*result[i - 7]);
-        let (res, _) = tmp.overflowing_add(s1);
-        result.append(res);
-    };
+    for i in 16
+        ..64_usize {
+            let s0 = ssig0(*result[i - 15]);
+            let s1 = ssig1(*result[i - 2]);
+            let (tmp, _) = (*result[i - 16]).overflowing_add(s0);
+            let (tmp, _) = tmp.overflowing_add(*result[i - 7]);
+            let (res, _) = tmp.overflowing_add(s1);
+            result.append(res);
+        };
     result.span()
 }
 
