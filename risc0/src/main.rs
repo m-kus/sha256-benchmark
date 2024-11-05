@@ -1,21 +1,28 @@
-use std::{
-    fs::{create_dir_all, File},
-    io::Write,
-    path::PathBuf,
-};
-
 use sha256_methods::{SHA256_GEN_ELF, SHA256_GEN_ID};
 use risc0_zkvm::{default_prover, ExecutorEnv};
+use clap::Parser;
+use rand::Rng;
+
+#[derive(Parser)]
+struct Args {
+    /// Size of the random byte vector to generate
+    #[arg(long = "input-size")]
+    input_size: usize,
+}
 
 fn main() {
     tracing_subscriber::fmt()
         .with_env_filter(tracing_subscriber::filter::EnvFilter::from_default_env())
         .init();
 
-    let data = [0u8; 32];
+    let args = Args::parse();
+
+    // Generate random bytes
+    let mut rng = rand::thread_rng();
+    let random_bytes: Vec<u8> = (0..args.input_size).map(|_| rng.gen()).collect();
 
     let env = ExecutorEnv::builder()
-        .write_slice(&data)
+        .write_slice(&random_bytes)
         .build()
         .unwrap();
 

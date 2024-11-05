@@ -1,0 +1,18 @@
+[package]
+version = "0.1.0"
+name = "sha256-script"
+edition = "2021"
+default-run = "sha256"
+
+[[bin]]
+name = "sha256"
+path = "src/bin/main.rs"
+
+[dependencies]
+sp1-sdk = { version = "3.0.0", default-features = false }
+clap = { version = "4.0", features = ["derive", "env"] }
+tracing = "0.1.40"
+rand = "0.8"
+
+[build-dependencies]
+sp1-helper = "3.0.0"

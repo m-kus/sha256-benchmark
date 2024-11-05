@@ -1,5 +1,16 @@
+args:
+	python scripts/generate_args.py --input-size 32 > data/args_32.txt
+	python scripts/generate_args.py --input-size 64 > data/args_64.txt
+	python scripts/generate_args.py --input-size 128 > data/args_128.txt
+	python scripts/generate_args.py --input-size 256 > data/args_256.txt
+	python scripts/generate_args.py --input-size 512 > data/args_512.txt
+	python scripts/generate_args.py --input-size 1024 > data/args_1024.txt
+
 artifacts:
-	cairo1-run src/lib.cairo --layout recursive --args '[8 0 0 0 0 0 0 0 0 1718123181 4167220599 1821360523 2392821280 144118917 1860318131 2418694429 224340261]' --proof_mode --air_public_input target/public_input.json --air_private_input target/private_input.json --trace_file target/trace --memory_file target/memory
+	cairo1-run src/lib.cairo --layout recursive --args_file data/args_$(SIZE).txt --proof_mode --air_public_input target/public_input.json --air_private_input target/private_input.json --trace_file target/trace --memory_file target/memory
+
+params:
+	python scripts/generate_params.py --desired-degree-bound ${BOUND} --last-layer-degree-bound 64 > target/prover_params.json
 
 prove:
-	cpu_air_prover --parameter_file prover_params.json --prover_config_file prover_config.json --private_input_file target/private_input.json --public_input_file target/public_input.json --out_file target/proof.json
+	time cpu_air_prover --parameter_file target/prover_params.json --prover_config_file prover_config.json --private_input_file target/private_input.json --public_input_file target/public_input.json --out_file target/proof.json
