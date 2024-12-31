@@ -22,6 +22,14 @@ ln -s $HOME/Library/Caches/com.swmansion.scarb/registry/std/v2.8.2/core cairo/co
 
 See https://stone-packaging.pages.dev/install/binaries
 
+### Stwo prover
+
+Make sure you have the latest Rust nightly toolchain installed.
+
+```sh
+cargo install --git https://github.com/m-kus/cpu_air_prover2 cpu_air_prover2
+```
+
 ### Risc0 toolchain
 
 Follow the instructions from https://dev.risczero.com/api/zkvm/install
