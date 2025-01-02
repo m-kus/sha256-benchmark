@@ -37,3 +37,34 @@ Follow the instructions from https://dev.risczero.com/api/zkvm/install
 ### SP1 toolchain
 
 See instructions at https://docs.succinct.xyz/getting-started/install.html
+
+## Run
+
+### Cairo
+
+Enter the cairo folder and run:
+
+```sh
+# Choose input size from {32, 64, 128, 256, 512, 1024}
+SIZE=32 make artifacts
+
+# Prove with Stone
+make prove
+
+# Update Stone parameters if necessary (if you get prover error, find `STARK: %bound%`)
+BOUND=%bound% make params
+
+# Prove with Stwo
+make prove-stwo
+```
+
+### SP1 / R0
+
+Open the respective folder and run:
+
+```sh
+# Choose arbitrary input size
+SIZE=32 make prove
+```
+
+It makes sense to run twice to exclude the compilation time from the evaluation.

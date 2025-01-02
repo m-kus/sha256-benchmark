@@ -8,5 +8,7 @@ fn main() {
 
     let mut hasher = Sha256::default();
     hasher.update(&data);
-    hasher.finalize_reset().to_vec();
+    let res = hasher.finalize().to_vec();
+
+    env::commit(&res);
 }

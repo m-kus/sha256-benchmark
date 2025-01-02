@@ -1,6 +1,7 @@
 use clap::Parser;
 use rand::Rng;
 use sp1_sdk::{ProverClient, SP1Stdin};
+use sha2::{Sha256, Digest};
 
 pub const SHA256_ELF: &[u8] = include_bytes!("../../../elf/riscv32im-succinct-zkvm-elf");
 
@@ -33,4 +34,12 @@ fn main() {
         .expect("failed to generate proof");
 
     client.verify(&proof, &vk).expect("failed to verify proof");
+    
+    let actual = proof.public_values.to_vec();
+
+    let mut hasher = Sha256::new();
+    hasher.update(&random_bytes);
+    let expected = hasher.finalize().to_vec();
+
+    assert_eq!(expected, actual);
 }

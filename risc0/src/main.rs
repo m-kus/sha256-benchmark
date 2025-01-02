@@ -2,6 +2,7 @@ use sha256_methods::{SHA256_GEN_ELF, SHA256_GEN_ID};
 use risc0_zkvm::{default_prover, ExecutorEnv};
 use clap::Parser;
 use rand::Rng;
+use sha2::{Sha256, Digest};
 
 #[derive(Parser)]
 struct Args {
@@ -31,4 +32,12 @@ fn main() {
 
     // Check that everything is OK
     prove_info.receipt.verify(SHA256_GEN_ID).expect("failed to verify");
+
+    let actual: Vec<u8> = prove_info.receipt.journal.decode().unwrap();
+
+    let mut hasher = Sha256::new();
+    hasher.update(&random_bytes);
+    let expected = hasher.finalize().to_vec();
+
+    assert_eq!(expected, actual);
 }
