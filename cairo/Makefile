@@ -8,6 +8,7 @@ args:
 	python scripts/generate_args.py --input-size 2048 > data/args_2048.txt
 	python scripts/generate_args.py --input-size 4096 > data/args_4096.txt
 	python scripts/generate_args.py --input-size 8192 > data/args_8192.txt
+	python scripts/generate_args.py --input-size 16384 > data/args_16384.txt
 
 artifacts:
 	cairo1-run src/lib.cairo --layout recursive --args_file data/args_$(SIZE).txt --proof_mode --air_public_input target/public_input.json --air_private_input target/private_input.json --trace_file target/trace --memory_file target/memory

@@ -18,6 +18,14 @@ https://docs.swmansion.com/scarb/docs/reference/global-directories.html#cache-di
 ln -s $HOME/Library/Caches/com.swmansion.scarb/registry/std/v2.8.2/core cairo/corelib 
 ```
 
+### Cairo0 runner
+
+Make sure you have Python 3.9 installed locally/in venv.
+
+```sh
+pip install cairo-lang
+```
+
 ### Stone prover
 
 See https://stone-packaging.pages.dev/install/binaries
@@ -58,6 +66,19 @@ BOUND=%bound% make params
 make prove-stwo
 ```
 
+### Cairo0
+
+```sh
+# Compile Cairo0 program
+make compile
+
+# Generate execution trace
+make artifacts
+
+# Prove with Stwo
+make prove-stwo
+```
+
 ### SP1 / R0
 
 Open the respective folder and run:
@@ -66,5 +87,3 @@ Open the respective folder and run:
 # Choose arbitrary input size
 SIZE=32 make prove
 ```
-
-It makes sense to run twice to exclude the compilation time from the evaluation.

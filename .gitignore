@@ -22,3 +22,6 @@ Cargo.lock
 
 # Symbolic link to Cairo core library
 corelib
+
+# Python virtual environment
+.venv
