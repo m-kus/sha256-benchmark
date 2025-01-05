@@ -35,7 +35,7 @@ See https://stone-packaging.pages.dev/install/binaries
 Make sure you have the latest Rust nightly toolchain installed.
 
 ```sh
-cargo install --git https://github.com/m-kus/cpu_air_prover2 cpu_air_prover2
+cargo install --git https://github.com/starkware-libs/stwo-cairo adapted_stwo
 ```
 
 ### Risc0 toolchain

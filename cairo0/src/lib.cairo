@@ -19,7 +19,7 @@ func main{range_check_ptr, bitwise_ptr: BitwiseBuiltin*}() {
         )
         from random import randrange
 
-        n_instances = 100
+        n_instances = 1
         blocks = []
         ids.n_instances = n_instances
         for _ in range(n_instances):
