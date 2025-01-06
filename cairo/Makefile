@@ -20,4 +20,4 @@ prove:
 	time cpu_air_prover --parameter_file target/prover_params.json --prover_config_file prover_config.json --private_input_file target/private_input.json --public_input_file target/public_input.json --out_file target/proof.json
 
 prove-stwo:
-	time adapted_stwo --priv_json target/private_input.json --pub_json target/public_input.json --proof_path target/proof.json --debug_lookup
+	time adapted_stwo --priv_json target/private_input.json --pub_json target/public_input.json --proof_path target/proof.json

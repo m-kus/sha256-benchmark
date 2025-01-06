@@ -35,7 +35,7 @@ See https://stone-packaging.pages.dev/install/binaries
 Make sure you have the latest Rust nightly toolchain installed.
 
 ```sh
-cargo install --git https://github.com/starkware-libs/stwo-cairo adapted_stwo
+RUSTFLAGS="-C target-cpu=native -C opt-level=3" cargo install --git https://github.com/starkware-libs/stwo-cairo adapted_stwo
 ```
 
 ### Risc0 toolchain
@@ -72,8 +72,8 @@ make prove-stwo
 # Compile Cairo0 program
 make compile
 
-# Generate execution trace
-make artifacts
+# Choose input size from {32, 64, 128, 256, 512, 1024}
+SIZE=32 make artifacts
 
 # Prove with Stwo
 make prove-stwo
@@ -84,6 +84,30 @@ make prove-stwo
 Open the respective folder and run:
 
 ```sh
+make build
 # Choose arbitrary input size
 SIZE=32 make prove
+```
+
+## Results
+
+Obtained on a M3 machine by running `./bench.sh`
+
+```
++----------+---------------+----------------+----------+----------+
+| Size     | Stwo (Cairo)  | Stwo (Cairo0)  | SP1      | RISC0    |
++----------+---------------+----------------+----------+----------+
+| 32       | 1.48          | 1.40           | 10.62    | 2.61     |
+| 64       | 1.63          | 1.35           | 10.48    | 2.65     |
+| 128      | 1.96          | 1.35           | 10.77    | 2.64     |
+| 256      | 2.12          | 1.35           | 11.13    | 2.62     |
+| 512      | 3.09          | 1.40           | 11.28    | 3.48     |
+| 1024     | 5.45          | 1.44           | 11.15    | 3.49     |
+| 2048     | 10.91         | 1.51           | 11.37    | 3.94     |
+| 4096     | ---           | 1.63           | 12.03    | 3.71     |
+| 8192     | ---           | 2.00           | 13.46    | 5.20     |
+| 16384    | ---           | 2.63           | 16.77    | 5.25     |
+| 32768    | ---           | 3.85           | 24.06    | 8.70     |
+| 65536    | ---           | 7.35           | 38.65    | 16.68    |
++----------+---------------+----------------+----------+----------+
 ```

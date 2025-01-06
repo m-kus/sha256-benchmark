@@ -25,3 +25,6 @@ corelib
 
 # Python virtual environment
 .venv
+
+# Benchmark results
+*.csv
