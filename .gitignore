@@ -28,3 +28,7 @@ corelib
 
 # Benchmark results
 *.csv
+
+# Linked circomlib path
+circomlib
+sha256_*
