@@ -32,3 +32,5 @@ corelib
 # Linked circomlib path
 circomlib
 sha256_*
+
+.DS_Store
